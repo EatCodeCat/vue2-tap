@@ -52,14 +52,20 @@
         function touchend(e) {
 
             if (!e.changedTouches) return;
-
-            if (!isMove && (Date.now() - startTime) < 350) {
-                /*调用 callback*/
-                this.callback && this.callback.apply(this, e.target.params);
+			
+			if (!isMove && (Date.now() - startTime) < 350) {
+            	/*调用 callback*/
+            	setTimeout(()=>{
+            			this.callback && this.callback.apply(this, e.target.params);
+            		/*重置 参数*/
+            		isMove = false;
+            		startTime = 0;
+            	},10)
+            }else{
+            	/*重置 参数*/
+            	isMove = false;
+            	startTime = 0;
             }
-            /*重置 参数*/
-            isMove = false;
-            startTime = 0;
         }
 
 
